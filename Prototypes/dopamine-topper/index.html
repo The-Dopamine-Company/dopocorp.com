@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dopamine Topper Prototype</title>
+    <style>
+      body { font-family: sans-serif; padding: 20px; }
+      .post { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+      .discussion { margin-top: 10px; }
+      .comment { margin-left: 10px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      const initialPosts = [
+        { id: 1, quizMaster: 'Alice', type: 'Trivia', genre: 'Science', question: 'What is H2O?', options: ['Water', 'Oxygen', 'Hydrogen'], answer: 'Water' },
+        { id: 2, quizMaster: 'Bob', type: 'Riddle', genre: 'History', question: 'Who crossed the Rubicon?', options: ['Caesar', 'Napoleon', 'Hannibal'], answer: 'Caesar' },
+        { id: 3, quizMaster: 'Carol', type: 'Puzzle', genre: 'Math', question: 'What is 2 + 2?', options: ['3', '4', '5'], answer: '4' },
+      ];
+
+      function Post({ post, onLockType, onLockGenre }) {
+        const [selected, setSelected] = React.useState(null);
+        const [result, setResult] = React.useState(null);
+        const [comments, setComments] = React.useState([]);
+        const [commentText, setCommentText] = React.useState('');
+
+        const choose = (opt) => {
+          setSelected(opt);
+          setResult(opt === post.answer ? 'Correct!' : 'Try again!');
+        };
+
+        const addComment = () => {
+          if (commentText.trim()) {
+            setComments([...comments, commentText]);
+            setCommentText('');
+          }
+        };
+
+        return (
+          <div className="post">
+            <h2>{post.quizMaster}'s {post.type} ({post.genre})</h2>
+            <p>{post.question}</p>
+            <div>
+              {post.options.map(opt => (
+                <button key={opt} onClick={() => choose(opt)} disabled={selected !== null}>
+                  {opt}
+                </button>
+              ))}
+            </div>
+            {result && <p className="result">{result}</p>}
+
+            <div className="discussion">
+              <h3>Discussion</h3>
+              {comments.map((c, i) => (
+                <div key={i} className="comment">• {c}</div>
+              ))}
+              <input
+                value={commentText}
+                onChange={e => setCommentText(e.target.value)}
+                placeholder="Share your thoughts"
+              />
+              <button onClick={addComment}>Post</button>
+            </div>
+
+            <div className="filters">
+              <button onClick={onLockType}>Lock POST_TYPE</button>
+              <button onClick={onLockGenre}>Lock POST_GENRE</button>
+            </div>
+          </div>
+        );
+      }
+
+      function App() {
+        const [lockedType, setLockedType] = React.useState(null);
+        const [lockedGenre, setLockedGenre] = React.useState(null);
+
+        const filtered = initialPosts.filter(
+          p =>
+            (!lockedType || p.type === lockedType) &&
+            (!lockedGenre || p.genre === lockedGenre)
+        );
+
+        return (
+          <div>
+            <h1>Dopamine Topper</h1>
+            {lockedType && (
+              <p>
+                Filtering by type: {lockedType}
+                <button onClick={() => setLockedType(null)}>Clear</button>
+              </p>
+            )}
+            {lockedGenre && (
+              <p>
+                Filtering by genre: {lockedGenre}
+                <button onClick={() => setLockedGenre(null)}>Clear</button>
+              </p>
+            )}
+            {filtered.map(post => (
+              <Post
+                key={post.id}
+                post={post}
+                onLockType={() => setLockedType(post.type)}
+                onLockGenre={() => setLockedGenre(post.genre)}
+              />
+            ))}
+            {filtered.length === 0 && <p>No posts match the selected filters.</p>}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<App />);
+    </script>
+  </body>
+</html>

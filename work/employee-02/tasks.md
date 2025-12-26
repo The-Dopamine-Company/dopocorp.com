@@ -10,3 +10,4 @@
 - [x] Log decisions for system email templates
 - [x] Update README with End of Task Summary
 - [x] Provide demo email scripts for org creation, coworker hire, task assignment, and coworker reply
+- [x] Provide demo-ready subject/body templates for org creation and coworker hire confirmations

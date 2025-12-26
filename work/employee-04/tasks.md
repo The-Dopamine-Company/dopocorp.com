@@ -5,3 +5,4 @@
 - [x] Write deliverables to output/.
 - [x] Draft v0 inbound/outbound email pipeline spec.
 - [x] Define minimal runtime components, jobs, and delay-support data for the pipeline.
+- [x] Define minimal mocked email transport + scheduler design for demo.

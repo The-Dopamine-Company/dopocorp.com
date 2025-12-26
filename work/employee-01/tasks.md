@@ -4,3 +4,4 @@
 - [x] Define minimum system boundary, core entities, and hello-world flow.
 - [x] Write deliverables to output/.
 - [x] Draft email command grammar v0 for org/coworker management.
+- [x] Draft v0 org bootstrap + admin auth model for email commands.

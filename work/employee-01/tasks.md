@@ -6,3 +6,4 @@
 - [x] Draft email command grammar v0 for org/coworker management.
 - [x] Draft v0 org bootstrap + admin auth model for email commands.
 - [x] Implement a runnable mocked email demo loop and write implementation notes.
+- [x] Update demo loop to ingest org/coworker email commands, align reply format, and add acceptance checklist logging.

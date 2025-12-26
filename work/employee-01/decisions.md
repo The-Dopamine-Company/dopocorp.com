@@ -5,3 +5,4 @@
 - Org creation is email-only, gated by sender allowlist or one-time bootstrap tokens tied to the admin email.
 - Implemented the demo loop as a self-contained Python script inside the employee output folder to avoid writing outside `work/` while still being runnable.
 - Used a simple sleep-based scheduler to model delayed replies without external dependencies.
+- 2025-12-26: Added explicit email command ingestion and checklist-step logging in the demo loop to mirror acceptance criteria while keeping mocked transport and in-memory storage.

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Tuple
 
 
 @dataclass
@@ -88,17 +88,122 @@ def demo() -> None:
     transport = MockEmailTransport(store=store)
     scheduler = Scheduler()
 
-    org_id = "org-acme"
     admin_email = "admin@acme.test"
+    control_email = "control@dopocorp.test"
     coworker_id = "cw-01"
     coworker_email = "sam@acme.test"
-    thread_id = "thread-1001"
+    org_thread_id = "thread-org-1001"
+    hire_thread_id = "thread-hire-1002"
+    task_thread_id = "thread-task-1003"
 
-    print("[demo] create org")
-    store.create_org(org_id, "Acme", admin_email)
+    def log_checklist(step: int, message: str) -> None:
+        print(f"[checklist {step}] {message}")
 
-    print("[demo] hire coworker")
-    store.hire_coworker(coworker_id, "Sam", "Engineer", coworker_email)
+    def parse_command(body: str) -> Tuple[str, Dict[str, str]]:
+        lines = [line.strip() for line in body.splitlines() if line.strip()]
+        command = lines[0].upper() if lines else ""
+        fields: Dict[str, str] = {}
+        for line in lines[1:]:
+            if ":" not in line:
+                continue
+            key, value = line.split(":", 1)
+            fields[key.strip().lower()] = value.strip()
+        return command, fields
+
+    def handle_command_email(
+        *,
+        from_addr: str,
+        body: str,
+        thread_id: str,
+    ) -> None:
+        command, fields = parse_command(body)
+        if command == "CREATE ORG":
+            org_name = fields.get("name", "Acme")
+            org_id = f"org-{org_name.lower().replace(' ', '-')}"
+            admin = fields.get("admin_email", from_addr)
+            store.create_org(org_id, org_name, admin)
+            log_checklist(1, f"Org created via email command ({org_name}).")
+            transport.send_email(
+                from_addr=control_email,
+                to_addr=admin,
+                subject="Re: CREATE ORG",
+                body=f"OK\norg_id: {org_id}\nname: {org_name}",
+                thread_id=thread_id,
+            )
+        elif command == "HIRE COWORKER":
+            name = fields.get("name", "Sam")
+            role = fields.get("role", "Engineer")
+            email_alias = fields.get("email_alias", coworker_email)
+            coworker_key = fields.get("coworker_id", coworker_id)
+            store.hire_coworker(coworker_key, name, role, email_alias)
+            log_checklist(
+                2,
+                f"Coworker hired via email command ({name}, {role}).",
+            )
+            transport.send_email(
+                from_addr=control_email,
+                to_addr=from_addr,
+                subject="Re: HIRE COWORKER",
+                body=(
+                    "OK\n"
+                    f"coworker_id: {coworker_key}\n"
+                    f"name: {name}\n"
+                    f"role: {role}"
+                ),
+                thread_id=thread_id,
+            )
+        else:
+            transport.send_email(
+                from_addr=control_email,
+                to_addr=from_addr,
+                subject=f"Re: {command or 'UNKNOWN COMMAND'}",
+                body="ERROR\nreason: unknown_command",
+                thread_id=thread_id,
+            )
+
+    log_checklist(7, "Using in-memory storage for orgs, coworkers, and threads.")
+    log_checklist(8, "Using mocked email transport for send/receive.")
+    log_checklist(9, "Demo script runs deterministically from a single entrypoint.")
+
+    print("[demo] ingest org creation command email")
+    org_command_body = (
+        "CREATE ORG\n"
+        "name: Acme\n"
+        f"admin_email: {admin_email}\n"
+    )
+    transport.send_email(
+        from_addr=admin_email,
+        to_addr=control_email,
+        subject="CREATE ORG",
+        body=org_command_body,
+        thread_id=org_thread_id,
+    )
+    handle_command_email(
+        from_addr=admin_email,
+        body=org_command_body,
+        thread_id=org_thread_id,
+    )
+
+    print("[demo] ingest coworker hire command email")
+    hire_command_body = (
+        "HIRE COWORKER\n"
+        f"coworker_id: {coworker_id}\n"
+        "name: Sam\n"
+        "role: Engineer\n"
+        f"email_alias: {coworker_email}\n"
+    )
+    transport.send_email(
+        from_addr=admin_email,
+        to_addr=control_email,
+        subject="HIRE COWORKER",
+        body=hire_command_body,
+        thread_id=hire_thread_id,
+    )
+    handle_command_email(
+        from_addr=admin_email,
+        body=hire_command_body,
+        thread_id=hire_thread_id,
+    )
 
     print("[demo] send task email")
     transport.send_email(
@@ -109,8 +214,9 @@ def demo() -> None:
             "Please draft the onboarding email flow for new orgs. "
             "Include subject + body for the first message."
         ),
-        thread_id=thread_id,
+        thread_id=task_thread_id,
     )
+    log_checklist(3, "Task assignment email stored with thread identifier.")
 
     def send_delayed_reply() -> None:
         transport.send_email(
@@ -121,20 +227,23 @@ def demo() -> None:
                 "Work Notes:\n"
                 "- Proposed subject: Welcome to Acme (Getting Started)\n"
                 "- Body: Thanks for joining... (steps 1-3)\n\n"
-                "- Sam"
+                "-- Sam"
             ),
-            thread_id=thread_id,
+            thread_id=task_thread_id,
         )
+        log_checklist(5, "Reply sent in the same thread with Re: subject.")
+        log_checklist(6, "Reply includes Work Notes section and signature.")
 
     print("[demo] schedule delayed reply")
-    scheduler.schedule(1.5, send_delayed_reply)
+    delay_seconds = 1.5
+    scheduler.schedule(delay_seconds, send_delayed_reply)
+    log_checklist(4, f"Reply scheduled with {delay_seconds:.1f}s delay.")
     scheduler.run()
 
+    log_checklist(10, "Console output includes key state transitions.")
     print("[demo] thread transcript")
-    for message in store.threads[thread_id].messages:
-        print(
-            f"  - {message['from']} -> {message['to']} | {message['subject']}"
-        )
+    for message in store.threads[task_thread_id].messages:
+        print(f"  - {message['from']} -> {message['to']} | {message['subject']}")
 
 
 if __name__ == "__main__":

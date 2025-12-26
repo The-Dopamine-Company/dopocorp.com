@@ -9,3 +9,6 @@
 - `output/behavior-spec.md`
 - `output/email-examples.md`
 - `output/response-format-and-delay.md`
+
+## End of Task Summary
+- Updated v0 reply delay window to 5–30 minutes and clarified urgent-tone handling without shortening the delay.

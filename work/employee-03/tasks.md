@@ -3,3 +3,4 @@
 - [x] Provide good/bad email behavior examples
 - [x] Write outputs to work/employee-03/output/
 - [x] Define v0 response format and deterministic delay policy
+- [x] Update v0 delay window to 5–30 minutes with urgent-tone guidance

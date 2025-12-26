@@ -7,3 +7,4 @@
 - [x] Define minimal runtime components, jobs, and delay-support data for the pipeline.
 - [x] Define minimal mocked email transport + scheduler design for demo.
 - [x] Specify minimal thread/header fields to log for demo thread continuity.
+- [x] Review demo transport logging for thread continuity fields and report missing fields.

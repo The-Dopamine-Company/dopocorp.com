@@ -12,3 +12,4 @@
 - Listed required scheduling/context data to support delayed responses.
 - Defined the demo’s mocked email transport and scheduler design with in-memory queues and thread linkage fields.
 - Specified minimal log fields (`thread_id`, `message_id`, `in_reply_to`, `references`, optional `subject`) to demonstrate thread continuity.
+- Reviewed demo transport logging and documented missing continuity fields for compliance.

@@ -6,6 +6,7 @@
 - Defined a v0 response format and unified delay policy.
 - Drafted a demo-ready coworker reply prompt template with a filled-out sample.
 - Delivered a concise demo-ready reply body template for v0 responses.
+- Reviewed the demo script coworker reply body against the v0 template and documented deviations.
 
 ## Outputs
 - `output/behavior-spec.md`
@@ -13,6 +14,7 @@
 - `output/response-format-and-delay.md`
 - `output/demo-reply-prompt.md`
 - `output/demo-reply-body-template.md`
+- `output/cycle-5-demo-reply-body-review.md`
 
 ## End of Task Summary
-- Created a concise v0 reply body template with Work Notes, Questions, and signature for the cycle 4 demo.
+- Documented deviations between the demo script reply body and the v0 template (missing acknowledgment, Questions section, required Work Notes fields, and full signature).

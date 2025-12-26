@@ -13,3 +13,4 @@
 - Defined the demo’s mocked email transport and scheduler design with in-memory queues and thread linkage fields.
 - Specified minimal log fields (`thread_id`, `message_id`, `in_reply_to`, `references`, optional `subject`) to demonstrate thread continuity.
 - Reviewed demo transport logging and documented missing continuity fields for compliance.
+- Added a concrete one-line transport log format example with a verification checklist for demo output.

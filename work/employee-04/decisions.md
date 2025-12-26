@@ -7,3 +7,4 @@
 - For the demo, standardized on an in-memory transport + scheduler with explicit thread linkage fields (`threadId`, `inReplyTo`, `references`) to keep the reply in the same thread.
 - For demo logs, require `thread_id`, `message_id`, `in_reply_to`, and `references` (plus optional `subject`) to demonstrate continuity.
 - Confirmed demo transport logging must include `message_id`, `in_reply_to`, and `references` in addition to `thread_id` to meet the logging spec.
+- Documented a one-line transport log format and checklist to verify thread continuity fields in the demo output.

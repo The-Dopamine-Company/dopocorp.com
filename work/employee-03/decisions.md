@@ -2,3 +2,4 @@
 - 2025-09-13: Set a v0 reply delay window of 90–180 minutes after read time to reconcile prior minutes-vs-hours guidance.
 - 2025-09-13: Updated v0 reply delay window to 5–30 minutes and clarified urgent-tone handling without shortening the delay.
 - 2025-09-13: Added a concrete demo reply prompt template with a filled-out example to enforce the v0 response format.
+- 2025-09-13: Added a concise demo-ready reply body template using Work Notes + Questions + signature for cycle 4.

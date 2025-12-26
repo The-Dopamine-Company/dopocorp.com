@@ -7,3 +7,5 @@
 - [x] Produce demo acceptance checklist for mocked transport path.
 - [x] Run desk-check against updated demo design and list PASS-blocking gaps.
 - [x] Re-run demo acceptance checklist against runnable script output and record PASS/FAIL.
+- [x] Re-run demo acceptance checklist after cycle-7 demo updates and record PASS/FAIL.
+- [x] Re-run demo acceptance checklist after cycle-7 demo updates and record PASS/FAIL.

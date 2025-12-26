@@ -11,3 +11,6 @@
 ## End of Task Summary
 - Reviewed the updated demo design notes against the demo acceptance checklist and identified PASS-blocking gaps (email-initiated org creation/hire, scheduled-time logging, and reply format).
 - Re-ran the demo acceptance checklist against the runnable script output and confirmed PASS for all criteria.
+
+## End of Task Summary
+- Re-ran the demo acceptance checklist against `python work/employee-01/output/demo_loop.py` after cycle-7 updates and recorded PASS results for all criteria in work/employee-05/output/cycle-7-demo-acceptance-rerun.md.

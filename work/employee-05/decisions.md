@@ -6,3 +6,4 @@
 - Defined demo acceptance criteria that require mocked transport, in-memory storage, explicit delay scheduling, and thread-linked replies to protect the email-only loop.
 - Flagged missing email-initiated org creation/hire, scheduled-time logging, and reply format requirements as PASS-blocking gaps in the updated demo design.
 - Confirmed the runnable demo script output satisfies all demo acceptance checklist items (PASS across all 10 criteria).
+- Re-ran the demo acceptance checklist after cycle-7 demo updates and confirmed PASS for all 10 criteria based on demo_loop output.

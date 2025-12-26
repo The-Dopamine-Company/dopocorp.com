@@ -6,3 +6,4 @@
 - [x] Draft v0 inbound/outbound email pipeline spec.
 - [x] Define minimal runtime components, jobs, and delay-support data for the pipeline.
 - [x] Define minimal mocked email transport + scheduler design for demo.
+- [x] Specify minimal thread/header fields to log for demo thread continuity.

@@ -1,24 +1,20 @@
-# DEMO READY
+DEMO READY
 
-A runnable demo exists and satisfies the primary objective: a user can create an organization, hire an AI coworker, send a task email, and receive an asynchronous in-thread reply.
+Run Instructions
+1) Start the UI:
+   python work/prototype/server.py
+2) Open http://localhost:8000
+3) Fill in the org creation, coworker hire, and task message fields (defaults provided).
+4) Click “Run Demo” to execute the locked demo flow and render outputs.
 
-## How to run the demo
-```bash
-python work/employee-01/output/demo_loop.py
-```
+What you will see
+- AI reply content rendered in-page.
+- Demo logs with checklist confirmations.
+- Thread transcript table showing thread IDs, message IDs, reply headers, and full bodies.
 
-## What you will see
-- Org creation via an email command and a confirmation reply.
-- Coworker hire via an email command and a confirmation reply.
-- A task email sent to the coworker.
-- A scheduled delay before the coworker reply.
-- A coworker reply in the same thread with the required Work Notes + signature format.
+Known Limitations
+- In-memory only (no persistence across server restarts).
+- Single-session UI; no routing or auth.
+- The demo flow is deterministic and runs the fixed sequence defined by the locked engine.
 
-## Known hacks, limitations, and shortcuts
-- Mocked email transport only (no SMTP/IMAP or provider integration).
-- In-memory storage for orgs, coworkers, threads, and messages.
-- Hardcoded demo email addresses, thread IDs, and content.
-- Simulated delay uses a short sleep (1.5s) instead of the real 5–30 minute window.
-- No persistence, no auth, no multi-org support, and no UI beyond console logs.
-
-Control is ready to return to the founder.
+Handing control back to the founder.

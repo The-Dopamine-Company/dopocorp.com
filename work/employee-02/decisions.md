@@ -8,3 +8,4 @@
 - Chose a minimal four-email demo script (org creation, hire confirmation, task assignment, coworker reply) with labeled sections to match v0 template format and keep tone neutral.
 - Added demo confirmation templates with explicit subject lines and labeled body sections to make org creation and coworker hire confirmations drop-in ready for the scripted demo.
 - Logged confirmation-template mismatches as-is without proposing script edits to keep scope limited to review.
+- Produced a minimal confirmation template variant that removes optional guidance lines while preserving labeled sections for demo safety.

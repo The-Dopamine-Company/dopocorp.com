@@ -1,0 +1,1 @@
+- 2025-09-13: Documented AI coworker email behavior with explicit delays, uncertainty, and collaboration norms aligned to async-first principles.

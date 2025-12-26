@@ -1,0 +1,4 @@
+- [x] Read company context files
+- [x] Draft AI coworker email behavior policy
+- [x] Provide good/bad email behavior examples
+- [x] Write outputs to work/employee-03/output/

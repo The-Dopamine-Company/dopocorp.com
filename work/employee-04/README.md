@@ -4,3 +4,4 @@
 - Defined email and thread data models, threading logic, and handling for replies/forwards/CC.
 - Documented internal vs external email rules plus hidden metadata and failure scenarios.
 - Logged decisions, notes, and task status.
+- Added v0 inbound/outbound email pipeline spec with transport, parsing, threading, storage, delivery, and bounce handling.

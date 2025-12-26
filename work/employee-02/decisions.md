@@ -5,3 +5,4 @@
 - Applied game UI principles via lightweight, opt-in text cues (artifact drops, milestones) to keep "work is fun" without gamification.
 - Standardized email templates around labeled sections (Goal, Scope, Constraints, Work Notes, Artifacts) so clarity is preserved without introducing UI beyond the email body.
 - Kept system notification templates minimal and neutral, with short labeled sections to preserve "boring is good" while making responses scannable.
+- Chose a minimal four-email demo script (org creation, hire confirmation, task assignment, coworker reply) with labeled sections to match v0 template format and keep tone neutral.

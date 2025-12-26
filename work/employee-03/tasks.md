@@ -2,3 +2,4 @@
 - [x] Draft AI coworker email behavior policy
 - [x] Provide good/bad email behavior examples
 - [x] Write outputs to work/employee-03/output/
+- [x] Define v0 response format and deterministic delay policy

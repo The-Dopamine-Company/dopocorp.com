@@ -7,3 +7,5 @@
 - Used a simple sleep-based scheduler to model delayed replies without external dependencies.
 - 2025-12-26: Added explicit email command ingestion and checklist-step logging in the demo loop to mirror acceptance criteria while keeping mocked transport and in-memory storage.
 - 2025-12-26: Verified demo script output includes checklist steps 1–10; no changes required.
+- 2025-12-28: Switched demo confirmations and coworker reply content to cycle 7 templates, using deterministic placeholders for timestamp and requester name.
+- 2025-12-28: Added deterministic thread continuity fields (message_id, in_reply_to, references) to transport logging.

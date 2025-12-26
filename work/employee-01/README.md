@@ -11,3 +11,5 @@
 - Updated the demo loop to parse email commands for org creation and coworker hire, with confirmation replies.
 - Aligned coworker reply formatting to the Work Notes + signature template and added checklist-step logging.
 - Ran the demo script and confirmed all acceptance checklist steps appear in console output.
+- Updated org/coworker confirmations and coworker reply body to cycle 7 templates, plus transport thread continuity logging.
+- Ran the demo loop and captured cycle 7 output highlights in output review notes.

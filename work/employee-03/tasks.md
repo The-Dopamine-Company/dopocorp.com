@@ -6,3 +6,4 @@
 - [x] Update v0 delay window to 5–30 minutes with urgent-tone guidance
 - [x] Write demo coworker reply prompt template with sample reply for cycle 2
 - [x] Provide demo-ready reply body template matching v0 format for cycle 4
+- [x] Review demo script coworker reply body vs v0 template (cycle 5)

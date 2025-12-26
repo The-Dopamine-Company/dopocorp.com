@@ -7,3 +7,4 @@
 - [x] Draft v0 org bootstrap + admin auth model for email commands.
 - [x] Implement a runnable mocked email demo loop and write implementation notes.
 - [x] Update demo loop to ingest org/coworker email commands, align reply format, and add acceptance checklist logging.
+- [x] Ran demo_loop.py and verified all acceptance checklist steps appear in console output.

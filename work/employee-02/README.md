@@ -11,3 +11,4 @@
 - Logged the decision to keep templates minimal and neutral to align with "boring is good."
 - Delivered demo-ready email scripts covering org creation, coworker hire, task assignment, and coworker reply.
 - Added demo-ready subject/body templates for org creation and coworker hire confirmations.
+- Reviewed demo confirmation outputs against templates and logged mismatches for org creation and coworker hire.

@@ -8,3 +8,4 @@
 - [x] Define minimal mocked email transport + scheduler design for demo.
 - [x] Specify minimal thread/header fields to log for demo thread continuity.
 - [x] Review demo transport logging for thread continuity fields and report missing fields.
+- [x] Provide cycle-7 logging format example and demo checklist.

@@ -1,0 +1,1 @@
+- Assumed no additional AGENTS.md files apply under work/employee-03/.

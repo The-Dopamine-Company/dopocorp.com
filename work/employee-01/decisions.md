@@ -6,3 +6,4 @@
 - Implemented the demo loop as a self-contained Python script inside the employee output folder to avoid writing outside `work/` while still being runnable.
 - Used a simple sleep-based scheduler to model delayed replies without external dependencies.
 - 2025-12-26: Added explicit email command ingestion and checklist-step logging in the demo loop to mirror acceptance criteria while keeping mocked transport and in-memory storage.
+- 2025-12-26: Verified demo script output includes checklist steps 1–10; no changes required.

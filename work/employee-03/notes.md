@@ -1,1 +1,2 @@
 - Assumed no additional AGENTS.md files apply under work/employee-03/.
+- Assumed v0 can use a single 90–180 minute delay window and defer “urgent” handling to tone rather than shorter waits.

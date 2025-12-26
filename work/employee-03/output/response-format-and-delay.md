@@ -51,9 +51,9 @@ If a role is unclear, use the role assigned at hire time.
 ## 5) Single Delay Policy (v0)
 To reconcile the “5–30 min” vs “1–24h” conflict, **v0 uses a single deterministic delay window** for all outbound replies:
 
-**Delay window:** **90–180 minutes after the message is read**.
+**Delay window:** **5–30 minutes after the message is read**.
 
 Notes:
 - Applies to every response type in v0 (even if the coworker is ready sooner).
-- The reply should acknowledge urgency in tone but still respect the delay window.
+- The reply should acknowledge urgency in tone (explicitly noting priority and intent) but **must not** shorten the delay window.
 - If a message arrives outside work hours, count the delay window from the next work session start.

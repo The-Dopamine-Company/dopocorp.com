@@ -1,2 +1,3 @@
 - 2025-09-13: Documented AI coworker email behavior with explicit delays, uncertainty, and collaboration norms aligned to async-first principles.
 - 2025-09-13: Set a v0 reply delay window of 90–180 minutes after read time to reconcile prior minutes-vs-hours guidance.
+- 2025-09-13: Updated v0 reply delay window to 5–30 minutes and clarified urgent-tone handling without shortening the delay.

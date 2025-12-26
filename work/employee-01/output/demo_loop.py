@@ -10,7 +10,12 @@ from typing import Callable, Dict, List, Tuple
 @dataclass
 class Thread:
     thread_id: str
+    counter: int = 0
     messages: List[Dict[str, str]] = field(default_factory=list)
+
+    def next_message_id(self) -> str:
+        self.counter += 1
+        return f"{self.thread_id}-msg-{self.counter:03d}"
 
 
 @dataclass
@@ -55,14 +60,29 @@ class MockEmailTransport:
     ) -> None:
         if thread_id not in self.store.threads:
             self.store.create_thread(thread_id)
+        thread = self.store.threads[thread_id]
+        message_id = thread.next_message_id()
+        in_reply_to = thread.messages[-1]["message_id"] if thread.messages else ""
+        references = " ".join(msg["message_id"] for msg in thread.messages)
         message = {
             "from": from_addr,
             "to": to_addr,
             "subject": subject,
             "body": body,
             "thread_id": thread_id,
+            "message_id": message_id,
+            "in_reply_to": in_reply_to,
+            "references": references,
         }
-        self.store.threads[thread_id].messages.append(message)
+        thread.messages.append(message)
+        print(
+            "[transport] "
+            f"thread={thread_id} "
+            f"msg={message_id} "
+            f"in-reply-to={in_reply_to or '-'} "
+            f"refs={references or '-'} "
+            f'subject="{subject}"'
+        )
         print(f"[send] {from_addr} -> {to_addr} | {subject} | thread={thread_id}")
 
 
@@ -92,6 +112,9 @@ def demo() -> None:
     control_email = "control@dopocorp.test"
     coworker_id = "cw-01"
     coworker_email = "sam@acme.test"
+    requester_name = "Admin"
+    timestamp = "2025-12-26 09:00 UTC"
+    current_org_id = ""
     org_thread_id = "thread-org-1001"
     hire_thread_id = "thread-hire-1002"
     task_thread_id = "thread-task-1003"
@@ -116,18 +139,36 @@ def demo() -> None:
         body: str,
         thread_id: str,
     ) -> None:
+        nonlocal current_org_id
         command, fields = parse_command(body)
         if command == "CREATE ORG":
             org_name = fields.get("name", "Acme")
             org_id = f"org-{org_name.lower().replace(' ', '-')}"
             admin = fields.get("admin_email", from_addr)
             store.create_org(org_id, org_name, admin)
+            current_org_id = org_id
             log_checklist(1, f"Org created via email command ({org_name}).")
+            org_confirmation_subject = f"[Dopo] Organization created: {org_name}"
+            org_confirmation_body = (
+                f"Hello {requester_name},\n\n"
+                "Your organization has been created.\n\n"
+                "**Organization**\n"
+                f"- Name: {org_name}\n"
+                f"- Org ID: {org_id}\n\n"
+                "**Owner**\n"
+                f"- Name: {requester_name}\n"
+                f"- Email: {admin}\n\n"
+                "**Status**\n"
+                "- Result: Created\n"
+                f"- Timestamp: {timestamp}\n\n"
+                'If you want to hire coworkers, reply with: “Hire Engineer named Sam.”\n\n'
+                "—Dopo System"
+            )
             transport.send_email(
                 from_addr=control_email,
                 to_addr=admin,
-                subject="Re: CREATE ORG",
-                body=f"OK\norg_id: {org_id}\nname: {org_name}",
+                subject=org_confirmation_subject,
+                body=org_confirmation_body,
                 thread_id=thread_id,
             )
         elif command == "HIRE COWORKER":
@@ -140,16 +181,30 @@ def demo() -> None:
                 2,
                 f"Coworker hired via email command ({name}, {role}).",
             )
+            org_id = current_org_id or "org-unknown"
+            org_name = store.orgs.get(org_id, {}).get("name", "Acme")
+            hire_confirmation_subject = f"[Dopo] Coworker hired: {name} ({role})"
+            hire_confirmation_body = (
+                f"Hello {requester_name},\n\n"
+                f"Your coworker has been added to {org_name}.\n\n"
+                "**Coworker**\n"
+                f"- Name: {name}\n"
+                f"- Role: {role}\n"
+                f"- Coworker ID: {coworker_key}\n\n"
+                "**Organization**\n"
+                f"- Name: {org_name}\n"
+                f"- Org ID: {org_id}\n\n"
+                "**Status**\n"
+                "- Result: Hired\n"
+                f"- Timestamp: {timestamp}\n\n"
+                f"To assign work, reply with: “Task for {name}: Draft onboarding email flow.”\n\n"
+                "—Dopo System"
+            )
             transport.send_email(
                 from_addr=control_email,
                 to_addr=from_addr,
-                subject="Re: HIRE COWORKER",
-                body=(
-                    "OK\n"
-                    f"coworker_id: {coworker_key}\n"
-                    f"name: {name}\n"
-                    f"role: {role}"
-                ),
+                subject=hire_confirmation_subject,
+                body=hire_confirmation_body,
                 thread_id=thread_id,
             )
         else:
@@ -224,10 +279,18 @@ def demo() -> None:
             to_addr=admin_email,
             subject="Re: Task: Draft onboarding email flow",
             body=(
-                "Work Notes:\n"
-                "- Proposed subject: Welcome to Acme (Getting Started)\n"
-                "- Body: Thanks for joining... (steps 1-3)\n\n"
-                "-- Sam"
+                "Quick note — I can take the first pass on this and will follow up if I hit any gaps.\n\n"
+                "**Work Notes**\n"
+                "- **Status:** In progress\n"
+                "- **Assumptions:** None\n"
+                "- **Blockers:** None\n"
+                "- **Next Step:** Draft the initial outline and share a short update\n"
+                "- **ETA:** Later today\n\n"
+                "**Questions**\n"
+                "1) Is there a preferred deadline I should aim for?\n"
+                "2) Any examples or references I should mirror?\n\n"
+                "— Sam\n"
+                "AI Coworker (Engineer)"
             ),
             thread_id=task_thread_id,
         )

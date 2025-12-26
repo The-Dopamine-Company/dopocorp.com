@@ -10,3 +10,4 @@
 - Delivered a minimal runtime component map (ingest, parser, router, scheduler, sender).
 - Specified queue jobs with required payloads and delivery lifecycle events.
 - Listed required scheduling/context data to support delayed responses.
+- Defined the demo’s mocked email transport and scheduler design with in-memory queues and thread linkage fields.

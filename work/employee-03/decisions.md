@@ -4,3 +4,4 @@
 - 2025-09-13: Added a concrete demo reply prompt template with a filled-out example to enforce the v0 response format.
 - 2025-09-13: Added a concise demo-ready reply body template using Work Notes + Questions + signature for cycle 4.
 - 2025-09-13: Logged that the demo script reply body deviates from the v0 template (missing acknowledgment, Questions section, required fields, and signature format).
+- 2025-09-13: Produced a minimal demo reply body variant that preserves acknowledgment, required Work Notes fields, Questions, and signature for cycle 7.

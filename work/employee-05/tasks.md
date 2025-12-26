@@ -6,3 +6,4 @@
 - [x] Translate v0 acceptance checklist into QA scenarios.
 - [x] Produce demo acceptance checklist for mocked transport path.
 - [x] Run desk-check against updated demo design and list PASS-blocking gaps.
+- [x] Re-run demo acceptance checklist against runnable script output and record PASS/FAIL.
